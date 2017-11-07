@@ -55,4 +55,44 @@ export class AppComponent {
       this.local_time.est = false;
     }
   }
+  switchbtns = ["ON","OFF","ON","OFF","ON","OFF","ON","OFF","ON","OFF"];
+  switch_pressed(index){
+    if (this.switchbtns[index] == "ON" ){
+      this.switchbtns[index] = "OFF";
+    }else{
+      this.switchbtns[index] = "ON";
+    }
+  }
+
+  user = {
+    first_name:"",
+    last_name:"",
+    email:"",
+    password:"",
+    confirm_pw:"",
+    street_address:"",
+    apt:"",
+    city:"",
+    state:"",
+    lucky:""
+
+  };
+  users =[];
+  submitstatus = false;
+  onSubmit(){
+    this.submitstatus = true;
+    this.users.push(this.user);
+    this.user = { 
+      first_name:"",
+      last_name:"",
+      email:"",
+      password:"",
+      confirm_pw:"",
+      street_address:"",
+      apt:"",
+      city:"",
+      state:"",
+      lucky:""
+    };
+  }
 }

@@ -9,3 +9,102 @@
 </div>
 
 <h3>{{local_time.time |  date:'medium'}}</h3>
+
+<br>
+<h1>Switchboard</h1>
+<div>
+    <button *ngFor="let swt of switchbtns; let i = index" (click)="switch_pressed(i)" [ngClass]="{'green':swt == 'ON' ,'red':!swt == 'ON'}">
+        {{swt}}
+    </button>
+</div>
+
+<br><br><br>
+<div>
+    <h1>Registration</h1>
+    <div class="display">
+        <p *ngIf='submitstatus && users'>Thank you for registering with us {{users[users.length-1].first_name}} {{users[users.length-1].last_name}}
+            We just send you a confirmation email at {{users[users.length-1].email}}, and we will send all mail to {{users[users.length-1].street_address}},
+           <span *ngIf="users[users.length-1].apt != ''">apt </span> {{users[users.length-1].apt}} {{users[users.length-1].city}}, {{users[users.length-1].state}}----Have a wonderful day.            
+        </p>
+    </div>
+    <h3>Account Information</h3>
+    <form (submit)="onSubmit()" #formData='ngForm'>
+        First Name:<input
+        type="text"
+        name="first_name"
+        [(ngModel)]="user.first_name"
+        required
+        #first_name = "ngModel"
+        >{{ first_name.errors  | json }}<br>
+
+        Last Name:<input
+        type="text"
+        name="last_name"
+        [(ngModel)]="user.last_name"
+        required
+        #last_name = "ngModel"
+        >{{ last_name.errors  | json }}<br>
+
+        Email:<input
+        type="text"
+        name="email"
+        [(ngModel)]="user.email"
+        required
+        pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+        #email = "ngModel"
+        >{{ email.errors  | json }}<br>
+
+        Password: <input 
+        type="password" 
+        name="password" 
+        required 
+        minlength="5" 
+        maxlength="15"
+        pattern="^([a-zA-Z0-9@*#]{8,15})$"
+        [(ngModel)]="user.password"
+        #password='ngModel'
+      />{{ password.errors  | json }}<br>
+
+      Password Confirmation: <input 
+      type="password" 
+      name="confirm_pw" 
+      pattern="\b{{user.password}}\b" 
+      [(ngModel)]="user.confirm_pw"
+      required
+      #confirm_pw = 'ngModel'>{{ confirm_pw.errors  | json }}<br>
+    
+      Street Address: <input
+      type="text" 
+      name="street_address" 
+      [(ngModel)]="user.street_address"
+      #street_address = 'ngModel'
+      required>{{ street_address.errors  | json }}<br>
+
+      Unit/Apt: <input
+      type="text" 
+      name="apt" 
+      [(ngModel)]="user.apt"
+      #apt = 'ngModel'
+      >{{ apt.errors  | json }}<br>
+
+      City: <input
+      type="text" 
+      name="city" 
+      [(ngModel)]="user.city"
+      #city = 'ngModel'
+      required>{{ city.errors  | json }}<br>
+
+      State: <input
+      type="text" 
+      name="state" 
+      [(ngModel)]="user.state"
+      #state = 'ngModel'
+      required>{{ state.errors  | json }}<br>
+
+      I'm feeling lucky:
+        <input type="radio" name="lucky" #lucky = 'ngModel' required [(ngModel)]="user.lucky" value="Yes">Yes
+        <input type="radio" name="lucky" #lucky = 'ngModel' required [(ngModel)]="user.lucky" value="No">No
+        {{ lucky.errors  | json }}<br>
+    <input *ngIf="formData.valid" type="submit">  
+    </form>
+</div>

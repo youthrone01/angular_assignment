@@ -1,3 +1,18 @@
 .yellow{
     background-color: yellow;
 }
+
+.red{
+    background-color: red;
+}
+
+.green{
+    background-color: green;
+}
+
+.display{
+    background-color:none;
+    width: 400px;
+    height: 150px;
+}
+
